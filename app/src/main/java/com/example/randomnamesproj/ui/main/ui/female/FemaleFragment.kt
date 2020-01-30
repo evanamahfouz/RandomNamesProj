@@ -1,12 +1,20 @@
 package com.example.randomnamesproj.ui.main.ui.female
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.randomnamesproj.R
+import com.example.randomnamesproj.data.db.RandomNameDataBase
+import com.example.randomnamesproj.databinding.FemalerecyclelistviewBinding
+import com.example.randomnamesproj.ui.main.ui.main.MyAdapter
+import kotlinx.android.synthetic.main.femalerecyclelistview.*
 
 class FemaleFragment : Fragment() {
 
@@ -15,18 +23,60 @@ class FemaleFragment : Fragment() {
     }
 
     private lateinit var viewModel: FemaleViewModel
+    private lateinit var adapter: MyAdapter
+    private lateinit var binding: FemalerecyclelistviewBinding
+    private lateinit var dB: RandomNameDataBase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.female_fragment, container, false)
+        // val rootview = inflater.inflate(R.layout.femalerecyclelistview, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.femalerecyclelistview, container, false)
+
+
+
+        viewModel = ViewModelProviders.of(this).get(FemaleViewModel::class.java)
+
+        dB = RandomNameDataBase.getInstance()
+
+
+        // in content do not change the layout size of the RecyclerView
+        adapter = MyAdapter(context!!)
+
+        with(binding.myRecyclerView) {
+            setHasFixedSize(true)
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(activity)
+        }
+
+        binding.myRecyclerView.adapter = adapter
+
+        viewModel.mutableList.observe(this, Observer {
+            Log.v(
+                "helloFromMain",
+                it.size.toString() + " " + it[0].name + it[1].surname + it[2].region
+            )
+            adapter.submitList(it)
+            prof.visibility = View.GONE
+        })
+
+        viewModel.mutableError.observe(this, Observer { errorLabel ->
+
+            //database
+            if (errorLabel.isNotEmpty()) {
+
+
+                Log.v("OnFailure", "Something Went Wrong")
+                prof.visibility = View.GONE
+
+                Toast.makeText(context, "Something Went Wrong", Toast.LENGTH_LONG).show()
+
+            }
+        })
+        return binding.root
+
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-                viewModel = ViewModelProviders.of(this).get(FemaleViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
 
 }

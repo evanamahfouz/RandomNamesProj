@@ -7,11 +7,13 @@ import androidx.room.RoomDatabase
 
 
 @Database(
-    entities = [RandomNameEntity::class],
-    version = 2
+    entities = [FemaleNameEntity::class, MaleNameEntity::class],
+    version = 1
+
 )
 abstract class RandomNameDataBase : RoomDatabase() {
-    abstract fun randomNameDOA(): RandomNameDOA
+    abstract fun femaleNameDOA(): FemaleNameDOA
+    abstract fun maleNameDOA(): MaleNameDOA
 
     companion object {
         @Volatile

@@ -24,9 +24,9 @@ open class MainActivity : AppCompatActivity() {
 
 
         val adapter = ViewPagerAdapter(supportFragmentManager)
+        adapter.addFragment(MaleFragment(), "Male")
 
         adapter.addFragment(FemaleFragment(), "Female")
-        adapter.addFragment(MaleFragment(), "Male")
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
     }

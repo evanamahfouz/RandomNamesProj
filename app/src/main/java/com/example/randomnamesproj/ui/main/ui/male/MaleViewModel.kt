@@ -2,12 +2,12 @@ package com.example.randomnamesproj.ui.main.ui.male
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.randomnamesproj.data.model.VolumeInfo
+import com.example.randomnamesproj.data.model.Example
 import com.example.randomnamesproj.data.repos.DataCallback
 import com.example.randomnamesproj.data.repos.Repo
 
 class MaleViewModel : ViewModel() {
-    val mutableList = MutableLiveData<List<VolumeInfo>>()
+    val mutableList = MutableLiveData<List<Example>>()
     val mutableError = MutableLiveData<String>()
 
     init {
@@ -16,12 +16,12 @@ class MaleViewModel : ViewModel() {
 
     private fun getPost() {
         val repo = Repo()
-        repo.getVolumeList(object : DataCallback<List<VolumeInfo>> {
+        repo.getNameFemaleList(object : DataCallback<List<Example>> {
             override fun onError(t: Throwable) {
                 mutableError.value = t.message
             }
 
-            override fun onSuccess(data: List<VolumeInfo>) {
+            override fun onSuccess(data: List<Example>) {
                 mutableList.value = data
                 mutableError.value = ""
             }
@@ -30,4 +30,5 @@ class MaleViewModel : ViewModel() {
         })
 
 
-    }}
+    }
+}

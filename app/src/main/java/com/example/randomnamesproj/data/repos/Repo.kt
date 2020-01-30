@@ -8,9 +8,8 @@ import android.net.NetworkInfo
 import android.util.Log
 import com.example.randomnamesproj.data.db.RandomNameDataBase
 import com.example.randomnamesproj.App
-import com.example.randomnamesproj.data.db.RandomNameEntity
-import com.example.randomnamesproj.data.model.VolumeInfo
-import com.example.randomnamesproj.data.model.BookObject
+import com.example.randomnamesproj.data.db.FemaleNameEntity
+import com.example.randomnamesproj.data.model.Example
 import com.example.randomnamesproj.data.network.PostClient
 
 import retrofit2.Call
@@ -23,7 +22,7 @@ import java.lang.Exception
 class Repo {
     private val dB = RandomNameDataBase.getInstance()
 
-    fun getVolumeList(callback: DataCallback<List<VolumeInfo>>) {
+    fun getNameFemaleList(callback: DataCallback<List<Example>>) {
         //val isConnected = true
 
         val cm =
@@ -31,14 +30,17 @@ class Repo {
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
         Log.v(
-            "InsideVoulmDataBase", isConnected.toString()
+            "InsideFemaleDataBase", isConnected.toString()
         )
 //        val Connect = true
         if (isConnected) {
-            PostClient.Instant.getCallBookObject()?.enqueue(object : Callback<BookObject> {
-                override fun onResponse(call: Call<BookObject>, response: Response<BookObject>) {
+            PostClient.Instant.getCallRandomName()?.enqueue(object : Callback<List<Example>> {
+                override fun onResponse(
+                    call: Call<List<Example>>,
+                    response: Response<List<Example>>
+                ) {
 
-                    val newData: List<VolumeInfo> = changeToVolum(response)!!
+                    val newData: List<Example> = getNameFemaleList(response)!!
                     Log.v("helloYEsResp", "Yes Internet Connection")
                     insertData(newData)
 
@@ -47,19 +49,19 @@ class Repo {
 
                 }
 
-                override fun onFailure(call: Call<BookObject>, t: Throwable) {
+                override fun onFailure(call: Call<List<Example>>, t: Throwable) {
                     Log.v("helloNoResp", "No Internet Connection")
                     callback.onError(t)
                 }
             })
         } else {
             try {
-                val items = dB.randomNameDOA().getAll()
-                Log.v("InsideVoulmDataBase", items.map {
-                    it.mapToVolumInfo()
+                val items = dB.femaleNameDOA().getAll()
+                Log.v("InsideFemaleDataBase", items.map {
+                    it.mapToExample()
                 }.size.toString())
                 callback.onSuccess(items.map {
-                    it.mapToVolumInfo()
+                    it.mapToExample()
                 })
             } catch (ex: Exception) {
                 callback.onError(ex)
@@ -67,20 +69,16 @@ class Repo {
         }
     }
 
-    fun insertData(response: List<VolumeInfo>) {
-        dB.randomNameDOA().insertAll(response.map {
-            it.mapToVolumInfoEntity()
+    fun insertData(response: List<Example>) {
+        dB.femaleNameDOA().insertAll(response.map {
+            it.mapToFemaleName()
         })
 
     }
 
-    private fun changeToVolum(response: Response<BookObject>): List<VolumeInfo>? {
-        return response.body()?.items?.mapNotNull {
-            it.volumeInfo
-        }
+    private fun getNameFemaleList(response: Response<List<Example>>): List<Example>? {
+        return response.body()
     }
 
-    fun showData(): List<RandomNameEntity> {
-        return dB.randomNameDOA().getAll()
-    }
+
 }

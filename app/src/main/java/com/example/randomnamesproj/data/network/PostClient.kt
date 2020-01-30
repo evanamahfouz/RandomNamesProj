@@ -1,6 +1,6 @@
 package com.example.randomnamesproj.data.network
 
-import com.example.randomnamesproj.data.model.BookObject
+import com.example.randomnamesproj.data.model.Example
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -8,22 +8,24 @@ import retrofit2.converter.gson.GsonConverterFactory
 class PostClient {
 
     companion object {
-        var bookIntefracre: BookAPI?= null
-        val BaseUrl = "https://www.googleapis.com/"
+        var randomIntefracre: RandomNameAPI? = null
+        val BaseUrl = "https://uinames.com/"
         val Instant by lazy {
             PostClient()
         }
     }
-  init {
 
-       val retrofit= Retrofit.Builder().baseUrl(BaseUrl).addConverterFactory(
+    init {
+
+        val retrofit = Retrofit.Builder().baseUrl(BaseUrl).addConverterFactory(
             GsonConverterFactory.create()
         )
             .build()
-       bookIntefracre =retrofit.create(BookAPI::class.java)
-   }
-    internal fun getCallBookObject(): Call<BookObject>? {
-        return bookIntefracre?.getBook()
+        randomIntefracre = retrofit.create(RandomNameAPI::class.java)
+    }
+
+    internal fun getCallRandomName(): Call<List<Example>>? {
+        return randomIntefracre?.getRandomName()
     }
 
 
