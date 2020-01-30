@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.randomnamesproj.data.model.Example
 import com.example.randomnamesproj.data.repos.DataCallback
-import com.example.randomnamesproj.data.repos.Repo
+import com.example.randomnamesproj.data.repos.RepoMale
 
 class MaleViewModel : ViewModel() {
     val mutableList = MutableLiveData<List<Example>>()
@@ -15,8 +15,8 @@ class MaleViewModel : ViewModel() {
     }
 
     private fun getPost() {
-        val repo = Repo()
-        repo.getNameFemaleList(object : DataCallback<List<Example>> {
+        val repo = RepoMale()
+        repo.getNameMaleList(object : DataCallback<List<Example>> {
             override fun onError(t: Throwable) {
                 mutableError.value = t.message
             }

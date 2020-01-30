@@ -8,8 +8,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 class PostClient {
 
     companion object {
-        var randomIntefracre: RandomNameAPI? = null
-        val BaseUrl = "https://uinames.com/"
+        var randomInterface: RandomNameAPI? = null
+        const val BaseUrl = "https://uinames.com/"
         val Instant by lazy {
             PostClient()
         }
@@ -21,11 +21,11 @@ class PostClient {
             GsonConverterFactory.create()
         )
             .build()
-        randomIntefracre = retrofit.create(RandomNameAPI::class.java)
+        randomInterface = retrofit.create(RandomNameAPI::class.java)
     }
 
-    internal fun getCallRandomName(): Call<List<Example>>? {
-        return randomIntefracre?.getRandomName()
+    internal fun getCallRandomName(gender: String): Call<List<Example>>? {
+        return randomInterface?.getRandomName(gender)
     }
 
 

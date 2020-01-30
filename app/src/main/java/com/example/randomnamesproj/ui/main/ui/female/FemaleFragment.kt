@@ -10,11 +10,13 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.randomnamesproj.R
 import com.example.randomnamesproj.data.db.RandomNameDataBase
-import com.example.randomnamesproj.databinding.FemalerecyclelistviewBinding
+import com.example.randomnamesproj.databinding.ContentrecyclenameBinding
 import com.example.randomnamesproj.ui.main.ui.main.MyAdapter
-import kotlinx.android.synthetic.main.femalerecyclelistview.*
+import kotlinx.android.synthetic.main.contentrecyclename.*
+import androidx.recyclerview.widget.DividerItemDecoration
+import android.graphics.drawable.ClipDrawable.HORIZONTAL
+
 
 class FemaleFragment : Fragment() {
 
@@ -24,16 +26,20 @@ class FemaleFragment : Fragment() {
 
     private lateinit var viewModel: FemaleViewModel
     private lateinit var adapter: MyAdapter
-    private lateinit var binding: FemalerecyclelistviewBinding
+    private lateinit var binding: ContentrecyclenameBinding
     private lateinit var dB: RandomNameDataBase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // val rootview = inflater.inflate(R.layout.femalerecyclelistview, container, false)
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.femalerecyclelistview, container, false)
+            DataBindingUtil.inflate(
+                inflater,
+                com.example.randomnamesproj.R.layout.contentrecyclename,
+                container,
+                false
+            )
 
 
 
@@ -51,6 +57,11 @@ class FemaleFragment : Fragment() {
         }
 
         binding.myRecyclerView.adapter = adapter
+
+        //Dividers
+        val itemDecor = DividerItemDecoration(context, HORIZONTAL)
+        binding.myRecyclerView.addItemDecoration(itemDecor)
+
 
         viewModel.mutableList.observe(this, Observer {
             Log.v(

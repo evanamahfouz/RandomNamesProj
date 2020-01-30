@@ -1,6 +1,13 @@
 <resources>
-    <string name="app_name">RandomNamesProj</string>
+    <string name="app_name">RandomNames</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="person_informations">Person Information</string>
+    <string name="full_name">Full Name :</string>
+    <string name="region">region :</string>
+    <string name="peronpic">PeronPic</string>
+    <string name="region1">Region :</string>
+    <string name="this_is_male_fragment">This Is Male Fragment</string>
+    <string name="personimg">PersonImg</string>
 </resources>

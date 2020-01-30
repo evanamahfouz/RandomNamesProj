@@ -16,6 +16,8 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.main.ui.main.MaleActivity" />
         <activity android:name=".ui.main.ui.main.FemaleActivity" />
+        <activity android:name=".ui.description.PersonDescriptionActivity" />
+
         <activity android:name=".ui.main.ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

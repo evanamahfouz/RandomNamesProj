@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [FemaleNameEntity::class, MaleNameEntity::class],
-    version = 1
+    version = 2
 
 )
 abstract class RandomNameDataBase : RoomDatabase() {

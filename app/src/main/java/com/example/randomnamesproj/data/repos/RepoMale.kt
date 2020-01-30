@@ -6,12 +6,10 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.util.Log
-import com.example.randomnamesproj.data.db.RandomNameDataBase
 import com.example.randomnamesproj.App
-import com.example.randomnamesproj.data.db.FemaleNameEntity
+import com.example.randomnamesproj.data.db.RandomNameDataBase
 import com.example.randomnamesproj.data.model.Example
 import com.example.randomnamesproj.data.network.PostClient
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,10 +17,10 @@ import java.lang.Exception
 
 
 @Suppress("DEPRECATION")
-class Repo {
+class RepoMale {
     private val dB = RandomNameDataBase.getInstance()
 
-    fun getNameFemaleList(callback: DataCallback<List<Example>>) {
+    fun getNameMaleList(callback: DataCallback<List<Example>>) {
         //val isConnected = true
 
         val cm =
@@ -30,17 +28,17 @@ class Repo {
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
         Log.v(
-            "InsideFemaleDataBase", isConnected.toString()
+            "InsideMaleDataBase", isConnected.toString()
         )
 //        val Connect = true
         if (isConnected) {
-            PostClient.Instant.getCallRandomName()?.enqueue(object : Callback<List<Example>> {
+            PostClient.Instant.getCallRandomName("male")?.enqueue(object : Callback<List<Example>> {
                 override fun onResponse(
                     call: Call<List<Example>>,
                     response: Response<List<Example>>
                 ) {
 
-                    val newData: List<Example> = getNameFemaleList(response)!!
+                    val newData: List<Example> = getNameMaleList(response)!!
                     Log.v("helloYEsResp", "Yes Internet Connection")
                     insertData(newData)
 
@@ -56,8 +54,8 @@ class Repo {
             })
         } else {
             try {
-                val items = dB.femaleNameDOA().getAll()
-                Log.v("InsideFemaleDataBase", items.map {
+                val items = dB.maleNameDOA().getAll()
+                Log.v("InsideMaleDataBase", items.map {
                     it.mapToExample()
                 }.size.toString())
                 callback.onSuccess(items.map {
@@ -70,13 +68,13 @@ class Repo {
     }
 
     fun insertData(response: List<Example>) {
-        dB.femaleNameDOA().insertAll(response.map {
-            it.mapToFemaleName()
+        dB.maleNameDOA().insertAll(response.map {
+            it.mapToMaleName()
         })
 
     }
 
-    private fun getNameFemaleList(response: Response<List<Example>>): List<Example>? {
+    private fun getNameMaleList(response: Response<List<Example>>): List<Example>? {
         return response.body()
     }
 
