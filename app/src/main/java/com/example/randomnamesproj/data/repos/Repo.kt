@@ -5,10 +5,9 @@ package com.example.randomnamesproj.data.repos
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
-import android.util.Log
 import com.example.randomnamesproj.data.db.RandomNameDataBase
 import com.example.randomnamesproj.App
-import com.example.randomnamesproj.data.model.Example
+import com.example.randomnamesproj.data.model.RandomName
 import com.example.randomnamesproj.data.network.PostClient
 
 import retrofit2.Call
@@ -16,32 +15,25 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Exception
 
-
-@Suppress("DEPRECATION")
-class RepoFemale {
+class Repo(private val gender1: String) {
     private val dB = RandomNameDataBase.getInstance()
 
-    fun getNameFemaleList(callback: DataCallback<List<Example>>) {
-        //val isConnected = true
+    fun getNameList(callback: DataCallback<List<RandomName>>) {
 
         val cm =
             App.application().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
-        Log.v(
-            "InsideFemaleDataBase", isConnected.toString()
-        )
-//        val Connect = true
+
         if (isConnected) {
-            PostClient.Instant.getCallRandomName("female")
-                ?.enqueue(object : Callback<List<Example>> {
+            PostClient.Instant.getCallRandomName(gender = gender1)
+                ?.enqueue(object : Callback<List<RandomName>> {
                     override fun onResponse(
-                        call: Call<List<Example>>,
-                        response: Response<List<Example>>
+                        call: Call<List<RandomName>>,
+                        response: Response<List<RandomName>>
                     ) {
 
-                        val newData: List<Example> = getNameFemaleList(response)!!
-                        Log.v("helloYEsResp", "Yes Internet Connection")
+                        val newData: List<RandomName> = getNameList(response).orEmpty()
                         insertData(newData)
 
                         callback.onSuccess(newData)
@@ -49,19 +41,16 @@ class RepoFemale {
 
                     }
 
-                    override fun onFailure(call: Call<List<Example>>, t: Throwable) {
-                        Log.v("helloNoResp", "No Internet Connection")
+                    override fun onFailure(call: Call<List<RandomName>>, t: Throwable) {
                         callback.onError(t)
                     }
                 })
         } else {
             try {
-                val items = dB.femaleNameDOA().getAll()
-                Log.v("InsideFemaleDataBase", items.map {
-                    it.mapToExample()
-                }.size.toString())
+                val items = dB.randomNameDOA().getAll(gender1)
+
                 callback.onSuccess(items.map {
-                    it.mapToExample()
+                    it.mapToExample(gender1)
                 })
             } catch (ex: Exception) {
                 callback.onError(ex)
@@ -69,14 +58,15 @@ class RepoFemale {
         }
     }
 
-    fun insertData(response: List<Example>) {
-        dB.femaleNameDOA().insertAll(response.map {
-            it.mapToFemaleName()
+    fun insertData(response: List<RandomName>) {
+
+        dB.randomNameDOA().insertAll(response.map {
+            it.mapToRandomName()
         })
 
     }
 
-    private fun getNameFemaleList(response: Response<List<Example>>): List<Example>? {
+    private fun getNameList(response: Response<List<RandomName>>): List<RandomName>? {
         return response.body()
     }
 

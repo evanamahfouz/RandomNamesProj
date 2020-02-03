@@ -10,4 +10,10 @@
     <string name="region1">Region :</string>
     <string name="this_is_male_fragment">This Is Male Fragment</string>
     <string name="personimg">PersonImg</string>
+    <string name="Male">male</string>
+    <string name="Gender">gender</string>
+    <string name="Region">region</string>
+    <string name="Name">name</string>
+    <string name="Surname">surname</string>
+
 </resources>

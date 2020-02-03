@@ -1,6 +1,6 @@
 package com.example.randomnamesproj.data.network
 
-import com.example.randomnamesproj.data.model.Example
+import com.example.randomnamesproj.data.model.RandomName
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,7 +24,7 @@ class PostClient {
         randomInterface = retrofit.create(RandomNameAPI::class.java)
     }
 
-    internal fun getCallRandomName(gender: String): Call<List<Example>>? {
+    internal fun getCallRandomName(gender: String): Call<List<RandomName>>? {
         return randomInterface?.getRandomName(gender)
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.randomnamesproj.R
+import com.example.randomnamesproj.data.model.RandomName
 import com.example.randomnamesproj.databinding.PersonDecripBinding
 
 @Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
@@ -20,10 +21,11 @@ class PersonDescriptionActivity : AppCompatActivity() {
             this,
             R.layout.person_decrip
         ).apply {
+            val paracablreObj = intent.getParcelableExtra<RandomName>(ARG_NAME)
             fullname.text =
-                intent.getStringExtra(ARG_NAME) + " " + (intent.getStringExtra(ARG_SURNAME))
-            region1.text = intent.getStringExtra(ARG_REGION)
-            if (intent.getStringExtra(ARG_GENDER) == "male") {
+                paracablreObj.name + " " + paracablreObj.surname
+            region1.text = paracablreObj.region
+            if (paracablreObj.gender == getString(R.string.Male)) {
                 imageView.setImageResource(R.drawable.family_son)
             } else {
                 imageView.setImageResource(R.drawable.family_daughter)
@@ -37,9 +39,6 @@ class PersonDescriptionActivity : AppCompatActivity() {
 
     companion object {
         const val ARG_NAME = "name"
-        const val ARG_SURNAME = "surname"
-        const val ARG_GENDER = "gender"
-        const val ARG_REGION = "region"
 
 
     }

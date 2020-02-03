@@ -5,13 +5,14 @@
 
         <variable
             name="listModel"
-            type="com.example.randomnamesproj.data.model.Example" />
+            type="com.example.randomnamesproj.data.model.RandomName" />
 
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
         android:orientation="horizontal">
 
         <ImageView
