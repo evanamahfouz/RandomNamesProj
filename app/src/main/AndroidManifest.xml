@@ -14,9 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.ui.main.MaleActivity" />
-        <activity android:name=".ui.main.ui.main.FemaleActivity" />
-        <activity android:name=".ui.description.PersonDescriptionActivity" />
+
+        <activity android:name=".ui.description.PersonDescriptionActivity"
+            android:parentActivityName="com.example.randomnamesproj.ui.main.ui.main.MainActivity" >
+        </activity>
+
 
         <activity android:name=".ui.main.ui.main.MainActivity">
             <intent-filter>
