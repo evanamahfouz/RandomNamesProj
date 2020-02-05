@@ -15,8 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.description.PersonDescriptionActivity"
-            android:parentActivityName="com.example.randomnamesproj.ui.main.ui.main.MainActivity" >
+        <activity
+            android:name=".ui.description.PersonDescriptionActivity"
+            android:parentActivityName="com.example.randomnamesproj.ui.main.ui.main.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.randomnamesproj.ui.main.ui.main.MainActivity" />
         </activity>
 
 
