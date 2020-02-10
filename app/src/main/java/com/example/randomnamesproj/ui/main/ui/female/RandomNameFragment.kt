@@ -25,6 +25,7 @@ class RandomNameFragment : Fragment() {
     private lateinit var adapter: RandomNameAdapter
     private lateinit var binding: ContentRecycleNameBinding
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

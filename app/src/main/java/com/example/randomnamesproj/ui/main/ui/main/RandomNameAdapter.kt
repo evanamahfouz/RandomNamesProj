@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.randomnamesproj.R
 import com.example.randomnamesproj.data.model.RandomName
 import com.example.randomnamesproj.databinding.ListQuickBinding
+import com.example.randomnamesproj.ui.description.PersonDescriptionActivity.Companion.ARG_FEMALE
 
 class RandomNameAdapter(private val onItemClicked: (RandomName) -> Unit) :
     ListAdapter<RandomName, RandomNameAdapter.MyViewHolder>(DiffCallback()) {
@@ -38,7 +39,7 @@ class RandomNameAdapter(private val onItemClicked: (RandomName) -> Unit) :
 
         fun bind(data: RandomName) {
             binding.listModel = data
-            if (data.gender == "female") {
+            if (data.gender == ARG_FEMALE) {
                 binding.icon.setImageResource(R.drawable.family_daughter)
             } else {
                 binding.icon.setImageResource(R.drawable.family_son)

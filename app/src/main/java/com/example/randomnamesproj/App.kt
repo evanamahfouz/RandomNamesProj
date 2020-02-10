@@ -1,7 +1,6 @@
 package com.example.randomnamesproj
 
 import android.app.Application
-import com.example.randomnamesproj.data.db.RandomNameDataBase
 
 class App : Application() {
 
@@ -16,7 +15,6 @@ class App : Application() {
         super.onCreate()
         instance = this
 
-        RandomNameDataBase.invoke(this)
 
     }
 

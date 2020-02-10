@@ -8,17 +8,25 @@ import android.net.NetworkInfo
 import com.example.randomnamesproj.data.db.RandomNameDataBase
 import com.example.randomnamesproj.App
 import com.example.randomnamesproj.data.model.RandomName
-import com.example.randomnamesproj.data.network.PostClient
+import com.example.randomnamesproj.data.network.RandomNameAPI
 
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Exception
+import javax.inject.Inject
 
-class Repo(private val gender1: String) {
-    private val dB = RandomNameDataBase.getInstance()
+class Repo @Inject constructor(
+    private val dB: RandomNameDataBase,
+    private val randomNameApi: RandomNameAPI
+) {
 
-    fun getNameList(callback: DataCallback<List<RandomName>>) {
+
+    fun getNameList(
+        gender1: String,
+        callback: DataCallback<List<RandomName>>
+    ) {
+
 
         val cm =
             App.application().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -26,8 +34,8 @@ class Repo(private val gender1: String) {
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
 
         if (isConnected) {
-            PostClient.Instant.getCallRandomName(gender = gender1)
-                ?.enqueue(object : Callback<List<RandomName>> {
+            randomNameApi.getRandomName(gender = gender1)
+                .enqueue(object : Callback<List<RandomName>> {
                     override fun onResponse(
                         call: Call<List<RandomName>>,
                         response: Response<List<RandomName>>

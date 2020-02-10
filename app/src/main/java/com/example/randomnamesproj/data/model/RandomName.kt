@@ -2,9 +2,7 @@ package com.example.randomnamesproj.data.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.os.Parcelable.CONTENTS_FILE_DESCRIPTOR
-import android.os.Parcelable.PARCELABLE_WRITE_RETURN_VALUE
-import android.util.Log
+
 import com.example.randomnamesproj.data.db.RandomNameEntity
 
 data class RandomName(
@@ -38,7 +36,7 @@ data class RandomName(
     }
 
     override fun describeContents(): Int {
-        return CONTENTS_FILE_DESCRIPTOR
+        return 0
     }
 
     companion object CREATOR : Parcelable.Creator<RandomName> {

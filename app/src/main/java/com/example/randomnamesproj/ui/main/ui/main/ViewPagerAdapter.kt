@@ -4,6 +4,9 @@ package com.example.randomnamesproj.ui.main.ui.main
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.example.randomnamesproj.ui.description.PersonDescriptionActivity
+import com.example.randomnamesproj.ui.description.PersonDescriptionActivity.Companion.ARG_FEMALE
+import com.example.randomnamesproj.ui.description.PersonDescriptionActivity.Companion.ARG_MALE
 
 import com.example.randomnamesproj.ui.main.ui.female.RandomNameFragment.Companion.newInstance
 
@@ -15,9 +18,9 @@ class ViewPagerAdapter(fm: FragmentManager) :
     private val mFragmentTitleList = ArrayList<String>()
 
     init {
-        addFragment(newInstance("male"), "Male")
+        addFragment(newInstance(ARG_MALE), "Male")
 
-        addFragment(newInstance("female"), "Female")
+        addFragment(newInstance(ARG_FEMALE), "Female")
     }
 
     override fun getItem(position: Int): Fragment {

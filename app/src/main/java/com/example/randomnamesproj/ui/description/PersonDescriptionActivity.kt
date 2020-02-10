@@ -21,11 +21,11 @@ class PersonDescriptionActivity : AppCompatActivity() {
             this,
             R.layout.person_decrip
         ).apply {
-            val paracablreObj = intent.getParcelableExtra<RandomName>(ARG_NAME)
+            val parsableObj = intent.getParcelableExtra<RandomName>(ARG_NAME)
             fullname.text =
-                paracablreObj.name + " " + paracablreObj.surname
-            region1.text = paracablreObj.region
-            if (paracablreObj.gender == getString(R.string.Male)) {
+                parsableObj.name + " " + parsableObj.surname
+            region1.text = parsableObj.region
+            if (parsableObj.gender == getString(R.string.Male)) {
                 imageView.setImageResource(R.drawable.family_son)
             } else {
                 imageView.setImageResource(R.drawable.family_daughter)
@@ -39,6 +39,8 @@ class PersonDescriptionActivity : AppCompatActivity() {
 
     companion object {
         const val ARG_NAME = "name"
+        const val ARG_FEMALE = "female"
+        const val ARG_MALE = "male"
 
 
     }
