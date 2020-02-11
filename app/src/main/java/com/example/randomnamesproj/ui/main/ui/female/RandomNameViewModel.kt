@@ -2,7 +2,7 @@ package com.example.randomnamesproj.ui.main.ui.female
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.randomnamesproj.data.db.DaggerAppComponent
+import com.example.randomnamesproj.dagger.component.DaggerAppComponent
 import com.example.randomnamesproj.data.model.RandomName
 import com.example.randomnamesproj.data.repos.DataCallback
 import com.example.randomnamesproj.data.repos.Repo

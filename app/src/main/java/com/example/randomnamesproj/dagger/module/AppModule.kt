@@ -1,7 +1,8 @@
-package com.example.randomnamesproj.data.db
+package com.example.randomnamesproj.dagger.module
 
 import androidx.room.Room
 import com.example.randomnamesproj.App
+import com.example.randomnamesproj.data.db.RandomNameDataBase
 import com.example.randomnamesproj.data.network.RandomNameAPI
 import com.example.randomnamesproj.data.repos.Repo
 import dagger.Module

@@ -1,5 +1,6 @@
-package com.example.randomnamesproj.data.db
+package com.example.randomnamesproj.dagger.component
 
+import com.example.randomnamesproj.dagger.module.AppModule
 import com.example.randomnamesproj.ui.main.ui.female.RandomNameViewModel
 
 import dagger.Component
