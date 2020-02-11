@@ -37,10 +37,4 @@ class AppModule {
         return retrofit.create(RandomNameAPI::class.java)
     }
 
-    @Singleton
-    @Provides
-    fun provideRepo(randomNameAPI: RandomNameAPI, randomNameDataBase: RandomNameDataBase): Repo {
-        return Repo(randomNameDataBase, randomNameAPI)
-
-    }
 }
