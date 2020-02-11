@@ -4,7 +4,6 @@ package com.example.randomnamesproj.ui.main.ui.main
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.example.randomnamesproj.ui.description.PersonDescriptionActivity
 import com.example.randomnamesproj.ui.description.PersonDescriptionActivity.Companion.ARG_FEMALE
 import com.example.randomnamesproj.ui.description.PersonDescriptionActivity.Companion.ARG_MALE
 

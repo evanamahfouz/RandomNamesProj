@@ -14,9 +14,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Exception
-import javax.inject.Inject
 
-class Repo @Inject constructor(
+class Repo constructor(
     private val dB: RandomNameDataBase,
     private val randomNameApi: RandomNameAPI
 ) {

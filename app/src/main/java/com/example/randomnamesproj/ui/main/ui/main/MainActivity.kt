@@ -17,7 +17,6 @@ open class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-        setContentView(R.layout.activity_main)
         val adapter = ViewPagerAdapter(supportFragmentManager)
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(
             this,
