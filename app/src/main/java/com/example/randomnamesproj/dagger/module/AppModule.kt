@@ -4,7 +4,6 @@ import androidx.room.Room
 import com.example.randomnamesproj.App
 import com.example.randomnamesproj.data.db.RandomNameDataBase
 import com.example.randomnamesproj.data.network.RandomNameAPI
-import com.example.randomnamesproj.data.repos.Repo
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

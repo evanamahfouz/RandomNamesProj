@@ -15,10 +15,10 @@ import com.example.randomnamesproj.ui.main.ui.main.RandomNameAdapter
 import kotlinx.android.synthetic.main.content_recycle_name.*
 import androidx.recyclerview.widget.DividerItemDecoration
 import android.graphics.drawable.ClipDrawable.HORIZONTAL
-import com.example.randomnamesproj.App
 import com.example.randomnamesproj.databinding.ContentRecycleNameBinding
 import com.example.randomnamesproj.ui.description.PersonDescriptionActivity
 import com.example.randomnamesproj.ui.description.PersonDescriptionActivity.Companion.ARG_NAME
+import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 
@@ -32,8 +32,8 @@ class RandomNameFragment : Fragment() {
     lateinit var factory: ViewModelFactory
 
     override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
         super.onAttach(context)
-        (context.applicationContext as App).component.inject(this)
     }
 
     override fun onCreateView(
