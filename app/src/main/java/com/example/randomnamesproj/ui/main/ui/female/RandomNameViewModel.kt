@@ -8,16 +8,9 @@ import com.example.randomnamesproj.data.repos.DataCallback
 import com.example.randomnamesproj.data.repos.Repo
 import javax.inject.Inject
 
-class RandomNameViewModel : ViewModel() {
+class RandomNameViewModel @Inject constructor(private val repo: Repo) : ViewModel() {
     val mutableList = MutableLiveData<List<RandomName>>()
     val mutableError = MutableLiveData<String>()
-    @Inject
-    lateinit var repo: Repo
-
-    init {
-        DaggerAppComponent.create().poke(this)
-
-    }
 
     fun getPost(gender: String) {
 
