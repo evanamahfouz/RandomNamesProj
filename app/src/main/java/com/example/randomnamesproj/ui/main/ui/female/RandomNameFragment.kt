@@ -31,10 +31,6 @@ class RandomNameFragment : Fragment() {
     @Inject
     lateinit var factory: ViewModelFactory
 
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -98,6 +94,10 @@ class RandomNameFragment : Fragment() {
 
     }
 
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     companion object {
         fun newInstance(gender: String): RandomNameFragment {

@@ -5,17 +5,15 @@ import androidx.room.*
 @Dao
 interface RandomNameDOA {
     @Query("SELECT * FROM RandomName_tb where gender LIKE  :gender1")
-    fun getAll(gender1: String): List<RandomNameEntity>
+    suspend fun getAll(gender1: String): List<RandomNameEntity>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(data: List<RandomNameEntity>)
+    suspend fun insertAll(data: List<RandomNameEntity>)
 
     @Query("SELECT COUNT(*) FROM RandomName_tb")
-    fun getCount(): Int
+    suspend fun getCount(): Int
 
     @Delete
-    fun delete(data: RandomNameEntity)
-
-
+    suspend fun delete(data: RandomNameEntity)
 }

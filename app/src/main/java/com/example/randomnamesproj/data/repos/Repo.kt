@@ -10,10 +10,6 @@ import com.example.randomnamesproj.App
 import com.example.randomnamesproj.data.model.RandomName
 import com.example.randomnamesproj.data.network.RandomNameAPI
 
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.lang.Exception
 import javax.inject.Inject
 
 class Repo @Inject constructor(
@@ -22,60 +18,29 @@ class Repo @Inject constructor(
 ) {
 
 
-    fun getNameList(
-        gender1: String,
-        callback: DataCallback<List<RandomName>>
-    ) {
-
-
+    suspend fun getNameList(gender1: String): List<RandomName> {
         val cm =
             App.application().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
 
-        if (isConnected) {
-            randomNameApi.getRandomName(gender = gender1)
-                .enqueue(object : Callback<List<RandomName>> {
-                    override fun onResponse(
-                        call: Call<List<RandomName>>,
-                        response: Response<List<RandomName>>
-                    ) {
-
-                        val newData: List<RandomName> = getNameList(response).orEmpty()
-                        insertData(newData)
-
-                        callback.onSuccess(newData)
-
-
-                    }
-
-                    override fun onFailure(call: Call<List<RandomName>>, t: Throwable) {
-                        callback.onError(t)
-                    }
-                })
+        return if (isConnected) {
+            randomNameApi.getRandomName(gender = gender1).also {
+                insertData(it)
+            }
         } else {
-            try {
-                val items = dB.randomNameDOA().getAll(gender1)
-
-                callback.onSuccess(items.map {
-                    it.mapToExample(gender1)
-                })
-            } catch (ex: Exception) {
-                callback.onError(ex)
+            dB.randomNameDOA().getAll(gender1).map {
+                it.mapToExample(gender1)
             }
         }
     }
 
-    fun insertData(response: List<RandomName>) {
+    suspend fun insertData(response: List<RandomName>) {
 
         dB.randomNameDOA().insertAll(response.map {
             it.mapToRandomName()
         })
 
-    }
-
-    private fun getNameList(response: Response<List<RandomName>>): List<RandomName>? {
-        return response.body()
     }
 
 
