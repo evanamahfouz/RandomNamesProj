@@ -4,6 +4,7 @@ import androidx.room.Room
 import com.example.randomnamesproj.App
 import com.example.randomnamesproj.data.db.RandomNameDataBase
 import com.example.randomnamesproj.data.network.RandomNameAPI
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -31,7 +32,9 @@ class AppModule {
 
         val retrofit = Retrofit.Builder().baseUrl("https://uinames.com/").addConverterFactory(
             GsonConverterFactory.create()
-        )
+        ).addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+
+
             .build()
         return retrofit.create(RandomNameAPI::class.java)
     }
