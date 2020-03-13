@@ -10,6 +10,8 @@ import com.example.randomnamesproj.data.db.RandomNameDataBase
 import com.example.randomnamesproj.App
 import com.example.randomnamesproj.data.model.RandomName
 import com.example.randomnamesproj.data.network.RandomNameAPI
+import io.reactivex.Observable
+import io.reactivex.Single
 
 import javax.inject.Inject
 
@@ -18,7 +20,7 @@ class Repo @Inject constructor(
     private val randomNameApi: RandomNameAPI
 ) {
 
-    fun getNameList(gender1: String): Any {
+    fun getNameList(gender1: String): Single<List<RandomName>> {
         val cm =
             App.application().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
@@ -29,9 +31,12 @@ class Repo @Inject constructor(
             randomNameApi.getRandomName(gender = gender1)
 
         } else {
-            dB.randomNameDOA().getAll(gender1).map {
-                it.mapToExample(gender1)
-            }
+            Single.just(
+                dB.randomNameDOA().getAll(gender1).map {
+                    it.mapToExample(gender1)
+                }
+            )
+
         }
     }
 
